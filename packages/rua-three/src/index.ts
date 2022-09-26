@@ -1,1 +1,3 @@
-console.log('test');
+import test from './test';
+
+export default test;

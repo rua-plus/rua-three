@@ -1,4 +1,10 @@
-import * as React from "react";
-export const Button = () => {
-  return <button>Boop</button>;
+import * as React from 'react';
+
+type Props = {} & React.DetailedHTMLProps<
+  React.ButtonHTMLAttributes<HTMLButtonElement>,
+  HTMLButtonElement
+>;
+
+export const Button = ({ ...rest }: Props) => {
+  return <button {...rest}>Boop</button>;
 };

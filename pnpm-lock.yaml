@@ -12,35 +12,6 @@ importers:
       prettier: 2.7.1
       turbo: 1.5.3
 
-  apps/docs:
-    specifiers:
-      '@babel/core': ^7.0.0
-      '@types/node': ^17.0.12
-      '@types/react': 18.0.17
-      eslint: 7.32.0
-      eslint-config-custom: workspace:*
-      next: 12.3.0
-      next-transpile-modules: 9.0.0
-      react: 18.2.0
-      react-dom: 18.2.0
-      tsconfig: workspace:*
-      typescript: ^4.5.3
-      ui: workspace:*
-    dependencies:
-      next: 12.3.0_ir3quccc6i62x6qn6jjhyjjiey
-      react: 18.2.0
-      react-dom: 18.2.0_react@18.2.0
-      ui: link:../../packages/ui
-    devDependencies:
-      '@babel/core': 7.19.1
-      '@types/node': 17.0.45
-      '@types/react': 18.0.17
-      eslint: 7.32.0
-      eslint-config-custom: link:../../packages/eslint-config-custom
-      next-transpile-modules: 9.0.0
-      tsconfig: link:../../packages/tsconfig
-      typescript: 4.8.3
-
   apps/web:
     specifiers:
       '@babel/core': ^7.0.0
@@ -52,6 +23,7 @@ importers:
       next-transpile-modules: 9.0.0
       react: 18.2.0
       react-dom: 18.2.0
+      rua-three: workspace:*
       tsconfig: workspace:*
       typescript: ^4.5.3
       ui: workspace:*
@@ -59,6 +31,7 @@ importers:
       next: 12.3.0_ir3quccc6i62x6qn6jjhyjjiey
       react: 18.2.0
       react-dom: 18.2.0_react@18.2.0
+      rua-three: link:../../packages/rua-three
       ui: link:../../packages/ui
     devDependencies:
       '@babel/core': 7.19.1
