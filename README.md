@@ -2,7 +2,7 @@
 
 A three.js hooks for React.
 
-## Useage
+## Usage
 
 ```tsx
 const init: InitFn = ({ scene, camera, addRenderCallback }) => {
