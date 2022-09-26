@@ -1,5 +1,4 @@
-import { useThree, THREE } from 'rua-three';
-import { InitFn } from 'rua-three/lib/esm/hooks/useThree';
+import { useThree, THREE, InitFn } from 'rua-three';
 
 const init: InitFn = ({ scene, camera, addRenderCallback }) => {
   scene.add(new THREE.AmbientLight('#fff', 0.6));
