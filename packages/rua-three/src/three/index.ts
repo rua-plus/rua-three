@@ -93,6 +93,8 @@ class RUAThree {
     this.requestRender = this.requestRender.bind(this);
     this.onWindowResize = this.onWindowResize.bind(this);
     this.addRenderCallback = this.addRenderCallback.bind(this);
+    this.frameArea = this.frameArea.bind(this);
+    this.clean = this.clean.bind(this);
 
     if (this.renderOnDemand) {
       this.controls.addEventListener('change', this.requestRender);
@@ -185,7 +187,7 @@ class RUAThree {
     camera.lookAt(boxCenter.x, boxCenter.y, boxCenter.z);
   }
 
-  clear() {
+  clean() {
     this.tracker.dispose();
     this.scene.clear();
     window.removeEventListener('resize', this.onWindowResize);

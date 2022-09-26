@@ -4,8 +4,6 @@ import typescript from 'rollup-plugin-typescript2';
 
 import pkg from './package.json';
 
-console.log(pkg.peerDependencies);
-
 export default {
   input: 'src/index.ts',
   output: [
