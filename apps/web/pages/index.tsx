@@ -1,11 +1,10 @@
-import { Button } from 'ui';
-import test from 'rua-three';
+import { useThree } from 'rua-three';
+import { InitFn } from 'rua-three/lib/esm/hooks/useThree';
+
+const init: InitFn = () => {};
 
 export default function Web() {
-  return (
-    <div>
-      <h1>Web</h1>
-      <Button onClick={() => console.log(test())} />
-    </div>
-  );
+  const { ref } = useThree({ init });
+
+  return <canvas ref={ref}></canvas>;
 }

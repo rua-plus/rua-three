@@ -1,3 +1,5 @@
-import test from './test';
+import RUAThree, { THREE } from './three';
+import useStats from './hooks/useStats';
+import useThree from './hooks/useThree';
 
-export default test;
+export { RUAThree, THREE, useThree, useStats };
