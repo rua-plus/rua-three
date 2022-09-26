@@ -1,6 +1,6 @@
 {
   "name": "rua-three",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "",
   "main": "./lib/cjs/index.js",
   "module": "./lib/esm/index.js",
@@ -13,8 +13,15 @@
     "build": "rollup -c",
     "dev": "rollup -cw"
   },
-  "keywords": [],
-  "author": "",
+  "keywords": [
+    "three.js",
+    "react"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rua-plus/rua-three"
+  },
+  "author": "xfy <i@defect.ink>",
   "license": "ISC",
   "dependencies": {},
   "peerDependencies": {
