@@ -2,11 +2,36 @@
   "name": "rua-three",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "./lib/cjs/index.js",
+  "module": "./lib/esm/index.js",
+  "types": "./lib/esm/index.d.ts",
+  "files": [
+    "/lib"
+  ],
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "prepack": "yarn build",
+    "build": "rollup -c",
+    "dev": "rollup -cw"
   },
   "keywords": [],
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "three": "^0.144.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.0.0",
+    "@rollup/plugin-commonjs": "^22.0.2",
+    "@rollup/plugin-node-resolve": "^14.1.0",
+    "@types/node": "^17.0.12",
+    "@types/stats.js": "^0.17.0",
+    "@types/three": "^0.144.0",
+    "eslint": "7.32.0",
+    "eslint-config-custom": "workspace:*",
+    "next-transpile-modules": "9.0.0",
+    "rollup": "^2.79.1",
+    "rollup-plugin-typescript2": "^0.34.0",
+    "tsconfig": "workspace:*",
+    "typescript": "^4.8.3"
+  }
 }
