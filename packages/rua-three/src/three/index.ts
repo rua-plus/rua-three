@@ -1,7 +1,6 @@
 import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 import ResourceTracker, { Disposable } from './ResourceTracker';
-import { Vector3 } from 'three';
 import Stats from 'stats.js';
 
 class SceneWithTracker extends THREE.Scene {
@@ -157,7 +156,7 @@ class RUAThree {
   frameArea(
     sizeToFitOnScreen: number,
     boxSize: number,
-    boxCenter: Vector3,
+    boxCenter: THREE.Vector3,
     camera: THREE.PerspectiveCamera
   ) {
     const halfSizeToFitOnScreen = sizeToFitOnScreen * 0.5;
