@@ -77,8 +77,12 @@ importers:
       eslint: 8.24.0
       eslint-config-custom: workspace:*
       next-transpile-modules: 9.0.0
+      react: ^18.2.0
+      react-dom: ^18.2.0
       rollup: ^2.79.1
       rollup-plugin-typescript2: ^0.34.0
+      stats.js: ^0.17.0
+      three: ^0.144.0
       tsconfig: workspace:*
       tslib: ^2.4.0
       typescript: ^4.8.3
@@ -94,8 +98,12 @@ importers:
       eslint: 8.24.0
       eslint-config-custom: link:../eslint-config-custom
       next-transpile-modules: 9.0.0
+      react: 18.2.0
+      react-dom: 18.2.0_react@18.2.0
       rollup: 2.79.1
       rollup-plugin-typescript2: 0.34.0_5q64ijqsuisqe52alrh6v6njki
+      stats.js: 0.17.0
+      three: 0.144.0
       tsconfig: link:../tsconfig
       tslib: 2.4.0
       typescript: 4.8.3
@@ -2342,7 +2350,6 @@ packages:
       loose-envify: 1.4.0
       react: 18.2.0
       scheduler: 0.23.0
-    dev: false
 
   /react-is/16.13.1:
     resolution: {integrity: sha512-24e6ynE2H+OKt4kqsOvNd8kBpV65zoxbA4BVsEOB3ARVWQki/DHzaUoC5KuON/BiccDaCCTZBuOcfZs70kR8bQ==}
@@ -2449,7 +2456,6 @@ packages:
     resolution: {integrity: sha512-CtuThmgHNg7zIZWAXi3AsyIzA3n4xx7aNyjwC2VJldO2LMVDhFK+63xGqq6CsJH4rTAt6/M+N4GhZiDYPx9eUw==}
     dependencies:
       loose-envify: 1.4.0
-    dev: false
 
   /semver/6.3.0:
     resolution: {integrity: sha512-b39TBaTSfV6yBrapU89p5fKekE2m/NwnDocOVruQFS1/veMgdzuPcnOM34M6CwxW8jH/lxEa5rBoDeUwu5HHTw==}
@@ -2509,7 +2515,6 @@ packages:
 
   /stats.js/0.17.0:
     resolution: {integrity: sha512-hNKz8phvYLPEcRkeG1rsGmV5ChMjKDAWU7/OJJdDErPBNChQXxCo3WZurGpnWc6gZhAzEPFad1aVgyOANH1sMw==}
-    dev: false
 
   /string-width/4.2.3:
     resolution: {integrity: sha512-wKyQRQpjJ0sIp62ErSZdGsjMJWsap5oRNihHhu6G7JVO/9jIB6UyevL+tXuOqrng8j/cxKTWyWUwvSTriiZz/g==}
@@ -2618,7 +2623,6 @@ packages:
 
   /three/0.144.0:
     resolution: {integrity: sha512-R8AXPuqfjfRJKkYoTQcTK7A6i3AdO9++2n8ubya/GTU+fEHhYKu1ZooRSCPkx69jbnzT7dD/xEo6eROQTt2lJw==}
-    dev: false
 
   /to-fast-properties/2.0.0:
     resolution: {integrity: sha512-/OaKK0xYrs3DmxRYqL/yDc+FxFUVYhDlXMhRmv3z915w2HF1tnN1omB354j8VUGO/hbRzyD6Y3sA7v7GS/ceog==}
