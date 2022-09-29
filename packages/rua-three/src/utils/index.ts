@@ -1,5 +1,5 @@
 export function getCanvasRelativePosition(
-  e: MouseEvent,
+  e: MouseEvent | Touch,
   canvas: HTMLCanvasElement
 ) {
   const rect = canvas.getBoundingClientRect();

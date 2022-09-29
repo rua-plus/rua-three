@@ -1,10 +1,9 @@
-import { useState } from 'react';
 import {
-  useThree,
-  THREE,
+  getCanvasRelativePosition,
   InitFn,
   MousePicker,
-  getCanvasRelativePosition,
+  THREE,
+  useThree,
 } from 'rua-three';
 
 export default function Web() {
@@ -16,7 +15,12 @@ export default function Web() {
     };
     let lastObject: THREE.Object3D | null = null;
     let lastColor: number | null = null;
-    const setPickPosition = (e: MouseEvent) => {
+
+    const getTouches = (e: TouchEvent) => {
+      e.preventDefault();
+      setPickPosition(e.touches[0]);
+    };
+    const setPickPosition = (e: MouseEvent | Touch) => {
       if (!ref.current) return;
       const canvas = ref.current;
       if (!(canvas instanceof HTMLCanvasElement)) return;
@@ -25,9 +29,6 @@ export default function Web() {
       pickPosition.y = (pos.y / canvas.height) * -2 + 1; // note we flip Y
     };
     const clearPickPosition = () => {
-      // 对于触屏，不像鼠标总是能有一个位置坐标，
-      // 如果用户不在触摸屏幕，我们希望停止拾取操作。
-      // 因此，我们选取一个特别的值，表明什么都没选中
       pickPosition.x = -Infinity;
       pickPosition.y = -Infinity;
     };
@@ -66,6 +67,19 @@ export default function Web() {
     ref.current?.addEventListener('mousemove', setPickPosition);
     ref.current?.addEventListener('mouseout', clearPickPosition);
     ref.current?.addEventListener('mouseleve', clearPickPosition);
+    ref.current?.addEventListener('touchstart', getTouches, { passive: false });
+    ref.current?.addEventListener('touchmove', getTouches);
+    ref.current?.addEventListener('touchend', clearPickPosition);
+
+    return () => {
+      console.log('calling cleanup');
+      ref.current?.removeEventListener('mousemove', setPickPosition);
+      ref.current?.removeEventListener('mouseout', clearPickPosition);
+      ref.current?.removeEventListener('mouseleve', clearPickPosition);
+      ref.current?.removeEventListener('touchstart', getTouches);
+      ref.current?.removeEventListener('touchmove', getTouches);
+      ref.current?.removeEventListener('touchend', clearPickPosition);
+    };
   };
 
   const { ref } = useThree({ init, width: 500, height: 300 });

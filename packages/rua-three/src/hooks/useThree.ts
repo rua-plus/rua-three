@@ -1,7 +1,7 @@
 import RUAThree, { defaultProps, ThreeProps } from '../three';
 import { useEffect, useRef } from 'react';
 
-export type InitFn = (three: RUAThree) => void;
+export type InitFn = (three: RUAThree) => void | (() => void);
 type Props = {
   init: InitFn;
 } & ThreeProps;
@@ -21,11 +21,12 @@ const useThree = (props: Props) => {
       props ? { ...threeProps, ...props } : threeProps
     );
 
-    props.init(three.current);
+    const cleanup = props.init(three.current);
 
     // Cleanup
     return () => {
       three.current?.clean();
+      cleanup?.();
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
