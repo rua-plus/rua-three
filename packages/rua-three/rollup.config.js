@@ -18,10 +18,7 @@ export default {
       sourcemap: true,
     },
   ],
-  external: [
-    ...Object.keys(pkg.peerDependencies || {}),
-    'three/examples/jsm/controls/OrbitControls',
-  ],
+  external: [...Object.keys(pkg.peerDependencies || {})],
   plugins: [
     nodeResolve(),
     commonjs(),
