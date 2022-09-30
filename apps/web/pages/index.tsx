@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import {
   getCanvasRelativePosition,
   InitFn,
@@ -7,6 +8,11 @@ import {
 } from 'rua-three';
 
 export default function Web() {
+  const [size, setSize] = useState({
+    width: 500,
+    height: 300,
+  });
+
   const init: InitFn = ({ scene, camera, addRenderCallback }) => {
     const picker = new MousePicker();
     const pickPosition = {
@@ -82,7 +88,23 @@ export default function Web() {
     };
   };
 
-  const { ref } = useThree({ init, width: 500, height: 300 });
+  const { ref } = useThree({ init, ...size });
 
-  return <canvas ref={ref}></canvas>;
+  return (
+    <>
+      <canvas ref={ref}></canvas>;
+      <div>
+        <button
+          onClick={() => setSize((d) => ({ ...d, width: d.width + 100 }))}
+        >
+          Add width
+        </button>
+        <button
+          onClick={() => setSize((d) => ({ ...d, height: d.height + 100 }))}
+        >
+          Add height
+        </button>
+      </div>
+    </>
+  );
 }

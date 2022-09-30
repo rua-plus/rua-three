@@ -32,6 +32,12 @@ const useThree = (props: Props) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  useEffect(() => {
+    if (!three.current) return;
+    if (props.width == null || props.height == null) return;
+    three.current.setCanvasSize(props.width, props.height);
+  }, [props.width, props.height]);
+
   return {
     three: three.current,
     ref,

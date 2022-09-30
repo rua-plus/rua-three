@@ -135,11 +135,7 @@ class RUAThree {
   }
 
   private onWindowResize() {
-    this.cameraWidth = this.width ?? window.innerWidth;
-    this.cameraHeight = this.height ?? window.innerHeight;
-    this.camera.aspect = this.cameraWidth / this.cameraHeight;
-    this.camera.updateProjectionMatrix();
-    this.renderer.setSize(this.cameraWidth, this.cameraHeight);
+    this.setSize();
     this.render(this.time);
   }
 
@@ -151,6 +147,26 @@ class RUAThree {
    */
   addRenderCallback(cb: (time: number) => void) {
     this.renderQueue.push(cb);
+  }
+
+  private setSize() {
+    this.cameraWidth = this.width ?? window.innerWidth;
+    this.cameraHeight = this.height ?? window.innerHeight;
+    this.camera.aspect = this.cameraWidth / this.cameraHeight;
+    this.camera.updateProjectionMatrix();
+    this.renderer.setSize(this.cameraWidth, this.cameraHeight);
+  }
+
+  /**
+   * Set size to canvas.
+   * It will be override params.
+   * @param width
+   * @param height
+   */
+  setCanvasSize(width: number, height: number) {
+    this.width = width;
+    this.height = height;
+    this.setSize();
   }
 
   frameArea(
@@ -172,8 +188,6 @@ class RUAThree {
     // move the camera to a position distance units way from the center
     // in whatever direction the camera was from the center already
     camera.position.copy(direction.multiplyScalar(distance).add(boxCenter));
-
-    console.log(boxCenter);
 
     // pick some near and far values for the frustum that
     // will contain the box.
