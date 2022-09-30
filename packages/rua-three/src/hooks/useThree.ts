@@ -11,6 +11,7 @@ const useThree = (props: Props) => {
   const three = useRef<RUAThree>();
 
   useEffect(() => {
+    if (!ref.current) throw new Error('Cannot access canvas element.');
     // When React created the canvas element.
     // pass to renderer
     const threeProps = {

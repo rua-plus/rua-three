@@ -84,5 +84,5 @@ export default function Web() {
 
   const { ref } = useThree({ init, width: 500, height: 300 });
 
-  return <canvas ref={ref}></canvas>;
+  return <canvas></canvas>;
 }
