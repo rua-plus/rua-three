@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import {
   getCanvasRelativePosition,
   InitFn,
@@ -12,6 +12,16 @@ export default function Web() {
     width: 500,
     height: 300,
   });
+
+  const handleSize = () => {
+    if (!wrapper.current) return;
+    const width = wrapper.current.clientWidth;
+    const height = wrapper.current.clientHeight;
+    setSize({
+      width,
+      height,
+    });
+  };
 
   const init: InitFn = ({ scene, camera, addRenderCallback }) => {
     const picker = new MousePicker();
@@ -76,6 +86,7 @@ export default function Web() {
     ref.current?.addEventListener('touchstart', getTouches, { passive: false });
     ref.current?.addEventListener('touchmove', getTouches);
     ref.current?.addEventListener('touchend', clearPickPosition);
+    window.addEventListener('resize', handleSize);
 
     return () => {
       console.log('calling cleanup');
@@ -85,14 +96,34 @@ export default function Web() {
       ref.current?.removeEventListener('touchstart', getTouches);
       ref.current?.removeEventListener('touchmove', getTouches);
       ref.current?.removeEventListener('touchend', clearPickPosition);
+      window.removeEventListener('resize', handleSize);
     };
   };
 
+  const wrapper = useRef<HTMLDivElement>(null);
+  useEffect(handleSize, []);
   const { ref } = useThree({ init, ...size });
 
   return (
     <>
-      <canvas ref={ref}></canvas>;
+      <div
+        ref={wrapper}
+        style={{
+          position: 'relative',
+          height: 'calc(100vh - 142px)',
+        }}
+      >
+        <canvas
+          style={{
+            position: 'absolute',
+            left: 0,
+            top: 0,
+          }}
+          ref={ref}
+        ></canvas>
+        ;
+      </div>
+
       <div>
         <button
           onClick={() => setSize((d) => ({ ...d, width: d.width + 100 }))}

@@ -155,6 +155,7 @@ class RUAThree {
     this.camera.aspect = this.cameraWidth / this.cameraHeight;
     this.camera.updateProjectionMatrix();
     this.renderer.setSize(this.cameraWidth, this.cameraHeight);
+    this.renderOnDemand && this.render(this.time);
   }
 
   /**
