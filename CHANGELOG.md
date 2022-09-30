@@ -6,6 +6,17 @@ All notable changes to this project will be documented in this file.
 
 ### Added
 
+- Adjust canvas size.
+- Responsive canvas size from props.
+
+### Changed
+
+### Fixed
+
+## [1.0.7] - 2022-09-30
+
+### Added
+
 - Throw error when cannot get canvas element.
 - ESM only.
 
