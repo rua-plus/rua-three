@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.0.7] - 2022-09-30
+
+### Added
+
+- Throw error when cannot get canvas element.
+- ESM only.
+
+### Changed
+
+### Fixed
+
 ## [1.0.6] - 2022-09-30
 
 ### Added
