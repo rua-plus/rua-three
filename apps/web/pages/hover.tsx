@@ -100,6 +100,7 @@ const Hover = () => {
       const halfHeight = Math.floor(window.innerHeight / 2);
 
       const updateMousePosition = (e: MouseEvent | globalThis.TouchEvent) => {
+        console.log('test');
         let x;
         let y;
         if (e instanceof MouseEvent) {
@@ -118,8 +119,13 @@ const Hover = () => {
         root.rotation.y = rotationY * (directionX / halfWidth);
         root.rotation.x = rotationX * (directionY / halfHeight);
       };
-      window.addEventListener('mousemove', updateMousePosition);
-      window.addEventListener('touchmove', updateMousePosition);
+
+      window.addEventListener('mousemove', updateMousePosition, {
+        passive: true,
+      });
+      window.addEventListener('touchmove', updateMousePosition, {
+        passive: true,
+      });
     };
 
     gltfLoader.load('/models/just_a_hungry_cat/scene.gltf', handleLoad);
@@ -130,6 +136,14 @@ const Hover = () => {
     alpha: true,
     // renderOnDemand: true,
   });
+  // useEffect(() => {
+  //   return () => {
+  //     console.log(updateMousePosition, !updateMousePosition);
+  //     if (!updateMousePosition) return;
+  //     window.removeEventListener('mousemove', updateMousePosition);
+  //     window.removeEventListener('touchmove', updateMousePosition);
+  //   };
+  // }, []);
 
   return (
     <>

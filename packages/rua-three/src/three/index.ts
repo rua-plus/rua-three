@@ -110,20 +110,16 @@ class RUAThree {
     this.renderer.toneMappingExposure = 1;
     this.renderer.shadowMap.enabled = true;
     this.renderer.shadowMap.type = THREE.PCFSoftShadowMap;
-    // renderer.outputEncoding = THREE.sRGBEncoding;
+    // this.renderer.outputEncoding = THREE.sRGBEncoding;
 
     this.camera = camera
       ? cameraCreator[camera](this.cameraWidth, this.cameraHeight)
-      : new THREE.PerspectiveCamera(
-          50,
-          this.cameraWidth / this.cameraHeight,
-          0.1,
-          1000
-        );
+      : cameraCreator.PerspectiveCamera(this.cameraWidth, this.cameraHeight);
 
     this.controls = controls
       ? controlsCreator[controls](this.camera, canvas ?? undefined)
-      : new OrbitControls(this.camera, canvas ?? undefined);
+      : controlsCreator.OrbitControls(this.camera, canvas ?? undefined);
+
     this.controls instanceof OrbitControls &&
       (this.controls.enableDamping = true);
     // Set controls rotate inversion must be in constructor.
