@@ -1,5 +1,6 @@
 import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
+import { TrackballControls } from 'three/examples/jsm/controls/TrackballControls';
 import ResourceTracker, { Disposable } from './ResourceTracker';
 import Stats from 'stats.js';
 
@@ -15,6 +16,31 @@ class SceneWithTracker extends THREE.Scene {
   }
 }
 
+const cameraCreator = {
+  PerspectiveCamera: (width: number, height: number) =>
+    new THREE.PerspectiveCamera(50, width / height, 0.1, 1000),
+  OrthographicCamera: (width: number, height: number) =>
+    new THREE.OrthographicCamera(
+      width / -2,
+      width / 2,
+      height / 2,
+      height / -2,
+      1,
+      1000
+    ),
+};
+
+const controlsCreator = {
+  OrbitControls: (
+    camera: THREE.PerspectiveCamera | THREE.OrthographicCamera,
+    canvas: HTMLCanvasElement | undefined
+  ) => new OrbitControls(camera, canvas),
+  TrackballControls: (
+    camera: THREE.PerspectiveCamera | THREE.OrthographicCamera,
+    canvas: HTMLCanvasElement | undefined
+  ) => new TrackballControls(camera, canvas),
+};
+
 export type ThreeProps = {
   rotateInversion?: boolean;
   antialias?: boolean;
@@ -25,7 +51,7 @@ export type ThreeProps = {
   canvas?: HTMLCanvasElement | null;
 
   camera?: 'PerspectiveCamera' | 'OrthographicCamera';
-  controls?: 'OrbitControls' | 'Trackball';
+  controls?: 'OrbitControls' | 'TrackballControls';
 };
 
 export const defaultProps: Partial<ThreeProps> = {
@@ -43,11 +69,11 @@ class RUAThree {
   /**
    * Default camera is PerspectiveCamera
    */
-  camera: THREE.PerspectiveCamera;
+  camera: THREE.PerspectiveCamera | THREE.OrthographicCamera;
   /**
    * Deafult controls is OrbitControls
    */
-  controls: OrbitControls;
+  controls: OrbitControls | TrackballControls;
 
   renderer: THREE.WebGLRenderer;
   stats: Stats | null = null;
@@ -65,6 +91,8 @@ class RUAThree {
     height,
     alpha,
     canvas,
+    camera,
+    controls,
   }: ThreeProps) {
     this.width = width;
     this.height = height;
@@ -84,15 +112,20 @@ class RUAThree {
     this.renderer.shadowMap.type = THREE.PCFSoftShadowMap;
     // renderer.outputEncoding = THREE.sRGBEncoding;
 
-    this.camera = new THREE.PerspectiveCamera(
-      50,
-      this.cameraWidth / this.cameraHeight,
-      0.1,
-      1000
-    );
+    this.camera = camera
+      ? cameraCreator[camera](this.cameraWidth, this.cameraHeight)
+      : new THREE.PerspectiveCamera(
+          50,
+          this.cameraWidth / this.cameraHeight,
+          0.1,
+          1000
+        );
 
-    this.controls = new OrbitControls(this.camera, canvas ?? undefined);
-    this.controls.enableDamping = true;
+    this.controls = controls
+      ? controlsCreator[controls](this.camera, canvas ?? undefined)
+      : new OrbitControls(this.camera, canvas ?? undefined);
+    this.controls instanceof OrbitControls &&
+      (this.controls.enableDamping = true);
     // Set controls rotate inversion must be in constructor.
     if (rotateInversion) this.controls.rotateSpeed *= -1;
     this.controls.update();
@@ -163,7 +196,8 @@ class RUAThree {
   private setSize() {
     this.cameraWidth = this.width ?? window.innerWidth;
     this.cameraHeight = this.height ?? window.innerHeight;
-    this.camera.aspect = this.cameraWidth / this.cameraHeight;
+    this.camera instanceof THREE.PerspectiveCamera &&
+      (this.camera.aspect = this.cameraWidth / this.cameraHeight);
     this.camera.updateProjectionMatrix();
     this.renderer.setSize(this.cameraWidth, this.cameraHeight);
     this.renderOnDemand && this.render(this.time);

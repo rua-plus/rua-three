@@ -102,7 +102,7 @@ export default function Web() {
 
   const wrapper = useRef<HTMLDivElement>(null);
   useEffect(handleSize, []);
-  const { ref } = useThree({ init, ...size });
+  const { ref } = useThree({ init, ...size, controls: 'TrackballControls' });
 
   return (
     <>
