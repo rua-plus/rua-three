@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import { useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { InitFn, THREE, useThree } from 'rua-three';
 import { GLTF, GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
 import useMousePosition from '../hooks/useMousePosition';
@@ -15,12 +15,12 @@ const Hover = () => {
     wdith: 0,
     height: 0,
   });
-  const getInnerSize = () => {
+  const getInnerSize = useCallback(() => {
     setInnerSize({
       wdith: window.innerWidth,
       height: window.innerHeight,
     });
-  };
+  }, []);
   useEffect(() => {
     getInnerSize();
     window.addEventListener('resize', getInnerSize);
@@ -28,7 +28,7 @@ const Hover = () => {
     return () => {
       window.removeEventListener('resize', getInnerSize);
     };
-  }, []);
+  }, [getInnerSize]);
 
   // canvas wrapper
   const wrapper = useRef<HTMLDivElement>(null);
@@ -37,7 +37,7 @@ const Hover = () => {
     height: 300,
   });
 
-  const setCanvasSize = () => {
+  const setCanvasSize = useCallback(() => {
     if (!wrapper.current) return;
     const width = wrapper.current.clientWidth;
     const height = wrapper.current.clientHeight;
@@ -45,7 +45,7 @@ const Hover = () => {
       width,
       height,
     });
-  };
+  }, []);
   useEffect(() => {
     setCanvasSize();
     window.addEventListener('resize', setCanvasSize);
@@ -53,7 +53,7 @@ const Hover = () => {
     return () => {
       window.removeEventListener('resize', setCanvasSize);
     };
-  }, []);
+  }, [setCanvasSize]);
 
   const init: InitFn = ({
     scene,
@@ -62,6 +62,7 @@ const Hover = () => {
     frameArea,
     isOrbitControls,
     isPerspectiveCamera,
+    addWindowEvent,
   }) => {
     if (isOrbitControls(controls)) {
       controls.enablePan = false;
@@ -100,7 +101,6 @@ const Hover = () => {
       const halfHeight = Math.floor(window.innerHeight / 2);
 
       const updateMousePosition = (e: MouseEvent | globalThis.TouchEvent) => {
-        console.log('test');
         let x;
         let y;
         if (e instanceof MouseEvent) {
@@ -120,15 +120,15 @@ const Hover = () => {
         root.rotation.x = rotationX * (directionY / halfHeight);
       };
 
-      window.addEventListener('mousemove', updateMousePosition, {
+      addWindowEvent('mousemove', updateMousePosition, {
         passive: true,
       });
-      window.addEventListener('touchmove', updateMousePosition, {
+      addWindowEvent('touchmove', updateMousePosition, {
         passive: true,
       });
     };
 
-    gltfLoader.load('/models/just_a_hungry_cat/scene.gltf', handleLoad);
+    gltfLoader.load('./models/just_a_hungry_cat/scene.gltf', handleLoad);
   };
   const { ref } = useThree({
     init,
@@ -136,14 +136,6 @@ const Hover = () => {
     alpha: true,
     // renderOnDemand: true,
   });
-  // useEffect(() => {
-  //   return () => {
-  //     console.log(updateMousePosition, !updateMousePosition);
-  //     if (!updateMousePosition) return;
-  //     window.removeEventListener('mousemove', updateMousePosition);
-  //     window.removeEventListener('touchmove', updateMousePosition);
-  //   };
-  // }, []);
 
   return (
     <>

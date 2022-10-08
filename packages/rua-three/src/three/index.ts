@@ -134,6 +134,7 @@ class RUAThree {
     this.addRenderCallback = this.addRenderCallback.bind(this);
     this.frameArea = this.frameArea.bind(this);
     this.clean = this.clean.bind(this);
+    this.addWindowEvent = this.addWindowEvent.bind(this);
 
     if (this.renderOnDemand) {
       this.controls.addEventListener('change', this.requestRender);
@@ -242,10 +243,39 @@ class RUAThree {
     camera.lookAt(boxCenter.x, boxCenter.y, boxCenter.z);
   }
 
+  /**
+   * Event listeners on window.
+   */
+  private windowEventList: {
+    type: string;
+    listener: EventListenerOrEventListenerObject;
+    options?: boolean | AddEventListenerOptions;
+  }[] = [];
+
+  /**
+   * Add event listener on window.
+   * The listener will remove on clean function.
+   * @param type
+   * @param listener
+   * @param options
+   */
+  addWindowEvent<K extends keyof WindowEventMap>(
+    type: K,
+    listener: (this: Window, ev: WindowEventMap[K]) => any,
+    options?: boolean | AddEventListenerOptions
+  ) {
+    window.addEventListener(type, listener, options);
+    this.windowEventList.push({ type, listener, options });
+  }
+
   clean() {
     this.tracker.dispose();
     this.scene.clear();
     window.removeEventListener('resize', this.onWindowResize);
+    // Remove all window listener
+    this.windowEventList.forEach((item) =>
+      window.removeEventListener(item.type, item.listener, item.options)
+    );
     this.stats?.dom.remove();
   }
 
