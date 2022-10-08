@@ -1,6 +1,6 @@
 {
   "name": "rua-three",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "",
   "main": "./lib/cjs/index.js",
   "module": "./lib/esm/index.js",

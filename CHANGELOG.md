@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.1.1] - 2022-10-08
+
+### Added
+
+- Function to add listener to window.
+- Remove listener after component unmounted.
+
+### Changed
+
 ## [1.1.0] - 2022-10-08
 
 ### Added
