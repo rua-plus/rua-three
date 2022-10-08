@@ -1,6 +1,6 @@
 import classNames from 'classnames';
-import { useRef, useState, useEffect, TouchEvent } from 'react';
-import { InitFn, useThree, THREE } from 'rua-three';
+import { useEffect, useRef, useState } from 'react';
+import { InitFn, THREE, useThree } from 'rua-three';
 import { GLTF, GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
 import useMousePosition from '../hooks/useMousePosition';
 
