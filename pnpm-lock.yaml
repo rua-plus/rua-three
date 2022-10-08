@@ -17,6 +17,7 @@ importers:
       '@babel/core': ^7.19.1
       '@types/node': ^18.7.21
       '@types/react': 18.0.21
+      '@types/three': ^0.144.0
       autoprefixer: ^10.4.12
       classnames: ^2.3.2
       eslint: 8.24.0
@@ -46,6 +47,7 @@ importers:
       '@babel/core': 7.19.1
       '@types/node': 18.7.21
       '@types/react': 18.0.21
+      '@types/three': 0.144.0
       autoprefixer: 10.4.12_postcss@8.4.17
       eslint: 8.24.0
       eslint-config-custom: link:../../packages/eslint-config-custom

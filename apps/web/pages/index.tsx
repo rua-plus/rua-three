@@ -7,6 +7,11 @@ const projects = [
     path: '/mouse',
     name: 'Mouse Pick',
   },
+  {
+    id: 1,
+    path: '/hover',
+    name: 'Mouse Hover',
+  },
 ];
 
 export default function Web() {
@@ -18,7 +23,7 @@ export default function Web() {
             <div
               className={classnames(
                 'p-4 bg-white rounded-md shadow-md',
-                'cursor-pointer select-none'
+                'cursor-pointer select-none mr-4'
               )}
             >
               {item.name}

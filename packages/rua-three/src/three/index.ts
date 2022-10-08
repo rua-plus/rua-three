@@ -252,6 +252,30 @@ class RUAThree {
     window.removeEventListener('resize', this.onWindowResize);
     this.stats?.dom.remove();
   }
+
+  isOrbitControls(
+    controls: OrbitControls | TrackballControls
+  ): controls is OrbitControls {
+    return controls instanceof OrbitControls;
+  }
+
+  isTrackballControls(
+    controls: OrbitControls | TrackballControls
+  ): controls is TrackballControls {
+    return controls instanceof TrackballControls;
+  }
+
+  isPerspectiveCamera(
+    camera: THREE.PerspectiveCamera | THREE.OrthographicCamera
+  ): camera is THREE.PerspectiveCamera {
+    return camera instanceof THREE.PerspectiveCamera;
+  }
+
+  isOrthographicCamera(
+    camera: THREE.PerspectiveCamera | THREE.OrthographicCamera
+  ): camera is THREE.OrthographicCamera {
+    return camera instanceof THREE.OrthographicCamera;
+  }
 }
 
 export default RUAThree;
