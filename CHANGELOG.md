@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.1.0] - 2022-10-08
+
+### Added
+
+- Custom camera and controls.
+
+### Changed
+
+### Fixed
+
 ## [1.0.9] - 2022-09-30
 
 ### Added
