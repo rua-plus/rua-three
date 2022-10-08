@@ -26,8 +26,8 @@ const useThree = (props: Props) => {
 
     // Cleanup
     return () => {
-      three.current?.clean();
       cleanup?.();
+      three.current?.clean();
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
