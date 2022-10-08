@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import { useRef, useState, useEffect } from 'react';
+import { useRef, useState, useEffect, TouchEvent } from 'react';
 import { InitFn, useThree, THREE } from 'rua-three';
 import { GLTF, GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
 import useMousePosition from '../hooks/useMousePosition';
@@ -69,6 +69,7 @@ const Hover = () => {
       controls.minPolarAngle = Math.PI * 0.2;
       controls.maxPolarAngle = Math.PI * 0.5;
       controls.maxAzimuthAngle = Math.PI * 0.2;
+      controls.enableRotate = false;
     }
     camera.position.set(0, 5, 5);
 
@@ -95,11 +96,19 @@ const Hover = () => {
       controls.target.copy(boxCenter);
       controls.update();
 
-      const updateMousePosition = (e: MouseEvent) => {
-        const x = e.clientX;
-        const y = e.clientY;
-        const halfWidth = Math.floor(window.innerWidth / 2);
-        const halfHeight = Math.floor(window.innerHeight / 2);
+      const halfWidth = Math.floor(window.innerWidth / 2);
+      const halfHeight = Math.floor(window.innerHeight / 2);
+
+      const updateMousePosition = (e: MouseEvent | globalThis.TouchEvent) => {
+        let x;
+        let y;
+        if (e instanceof MouseEvent) {
+          x = e.clientX;
+          y = e.clientY;
+        } else {
+          x = e.touches[0].clientX;
+          y = e.touches[0].clientY;
+        }
 
         // > 0 is right, < 0 is left
         const directionX = x - halfWidth;
@@ -108,10 +117,9 @@ const Hover = () => {
         // if (directionX > 0) root.rotation.y += 0.01;
         root.rotation.y = rotationY * (directionX / halfWidth);
         root.rotation.x = rotationX * (directionY / halfHeight);
-
-        console.log(root.rotation);
       };
       window.addEventListener('mousemove', updateMousePosition);
+      window.addEventListener('touchmove', updateMousePosition);
     };
 
     gltfLoader.load('/models/just_a_hungry_cat/scene.gltf', handleLoad);
