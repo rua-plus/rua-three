@@ -23,6 +23,9 @@ export type ThreeProps = {
   height?: number;
   alpha?: boolean;
   canvas?: HTMLCanvasElement | null;
+
+  camera?: 'PerspectiveCamera' | 'OrthographicCamera';
+  controls?: 'OrbitControls' | 'Trackball';
 };
 
 export const defaultProps: Partial<ThreeProps> = {
@@ -36,9 +39,17 @@ class RUAThree {
   tracker = new ResourceTracker();
 
   scene = new SceneWithTracker(this.tracker);
+
+  /**
+   * Default camera is PerspectiveCamera
+   */
   camera: THREE.PerspectiveCamera;
-  renderer: THREE.WebGLRenderer;
+  /**
+   * Deafult controls is OrbitControls
+   */
   controls: OrbitControls;
+
+  renderer: THREE.WebGLRenderer;
   stats: Stats | null = null;
 
   private width: number | null | undefined = null;
