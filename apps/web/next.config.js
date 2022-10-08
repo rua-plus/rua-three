@@ -8,9 +8,11 @@
 //   },
 // });
 
+const production = process.env.NODE_ENV === 'production';
+
 module.exports = {
   reactStrictMode: true,
-  basePath: '/rua-three',
+  basePath: production ? '/rua-three' : '',
   experimental: {
     esmExternals: 'loose',
   },
