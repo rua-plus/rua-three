@@ -12,6 +12,11 @@ const projects = [
     path: '/hover',
     name: 'Mouse Hover',
   },
+  {
+    id: 2,
+    path: '/tween',
+    name: 'Tween Animation',
+  },
 ];
 
 export default function Web() {
