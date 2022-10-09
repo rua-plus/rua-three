@@ -1,4 +1,5 @@
 import { InitFn, useThree, THREE } from 'rua-three';
+import TWEEN from '@tweenjs/tween.js';
 import { GLTF, GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
 
 const glftLoader = new GLTFLoader();
@@ -20,8 +21,8 @@ const TweenPage = () => {
 
     if (isOrbitControls(controls)) {
       controls.enablePan = false;
-      controls.enableRotate = false;
       controls.enableZoom = false;
+      controls.enableRotate = false;
     }
 
     const handleLoad = (gltf: GLTF) => {
@@ -46,6 +47,42 @@ const TweenPage = () => {
       }
       controls.target.copy(boxCenter);
       controls.update();
+
+      // Rotate 180 degress
+      root.rotation.y = Math.PI * 2;
+
+      // Enter animation
+      const entryValue = {
+        rotationY: root.rotation.y,
+        meshY: root.position.y,
+        cameraY: camera.position.y,
+        z: camera.position.z,
+      };
+      const enter = new TWEEN.Tween(entryValue)
+        .to(
+          {
+            rotationY: 0,
+            meshY: entryValue.meshY - 1,
+            cameraY: entryValue.cameraY + 0.5,
+            z: entryValue.z - 16,
+          },
+          1000
+        )
+        .onUpdate((obj) => {
+          // root.rotation.y = obj.rotationY;
+          root.position.y = obj.meshY;
+          camera.position.y = obj.cameraY;
+          camera.position.z = obj.z;
+        })
+        .easing(TWEEN.Easing.Circular.Out);
+      setTimeout(() => {
+        enter.start();
+      }, 1000);
+
+      // Render animation
+      addRenderCallback((time) => {
+        TWEEN.update(time / 0.001);
+      });
 
       const halfWidth = Math.floor(window.innerWidth / 2);
       const halfHeight = Math.floor(window.innerHeight / 2);
