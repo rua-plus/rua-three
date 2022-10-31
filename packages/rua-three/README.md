@@ -2,6 +2,14 @@
 
 A three.js hooks for React.
 
+## Installation
+
+```bash
+npm i rua-three
+# or
+yarn add rua-three
+```
+
 ## Usage
 
 ```tsx
